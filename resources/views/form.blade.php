@@ -14,7 +14,7 @@
         <div class="form-group {{ $errors->has($item->fieldName) ? 'has-error' : ''}}">
             <label for="{{$item->fieldName}}" class="control-label">{{ 'Name' }}</label>
             <input class="form-control" name="{{$item->fieldName}}" type="text" id="{{$item->fieldName}}" value="{{ $kk->{$item->fieldName} or ''}}" >
-            {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+            {!! $errors->first($item->fieldName, '<p class="help-block">:message</p>') !!}
         </div>
     @endif
 

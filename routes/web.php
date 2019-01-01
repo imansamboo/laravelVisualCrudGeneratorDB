@@ -100,3 +100,4 @@ Route::resource('hhhs', 'HhhsController');
 Route::resource('mms', 'MmsController');
 Route::resource('nnns', 'NnnsController');
 Route::resource('kkkkks', 'KkkkksController');
+Route::resource('vvvs', 'VvvsController');
