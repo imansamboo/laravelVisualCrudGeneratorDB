@@ -97,3 +97,6 @@ Route::resource('pars', 'ParsController');
 Route::resource('tels', 'TelsController');
 Route::resource('kks', 'KksController');
 Route::resource('hhhs', 'HhhsController');
+Route::resource('mms', 'MmsController');
+Route::resource('nnns', 'NnnsController');
+Route::resource('kkkkks', 'KkkkksController');

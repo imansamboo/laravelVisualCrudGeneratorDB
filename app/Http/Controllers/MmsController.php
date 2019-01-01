@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\FormField;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Mersad;
-use App\Crud;
+use App\Mm;
 use Illuminate\Http\Request;
+use App\Crud;
 
-class MersadsController extends Controller
+class MmsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,16 +18,18 @@ class MersadsController extends Controller
      */
     public function index(Request $request)
     {
+        $fillables = (new Mm)->getFillable();
+        $crud = Crud::where('name', '=', strtolower('Mm') . 's')->get()[0];
         $keyword = $request->get('search');
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $mersads = Mersad::latest()->paginate($perPage);
+            $models = $mms = Mm::latest()->paginate($perPage);
         } else {
-            $mersads = Mersad::latest()->paginate($perPage);
+            $models = $mms = Mm::latest()->paginate($perPage);
         }
 
-        return view('mersads.index', compact('mersads'));
+        return view('index', compact('mms', 'models', 'fillables', 'crud'));
     }
 
     /**
@@ -38,21 +39,7 @@ class MersadsController extends Controller
      */
     public function create()
     {
-        $form = array();
-        $fillables = (new Mersad)->getFillable();
-        $crudName = strtolower('Mersad') . 's';
-        $crud = Crud::where('name', '=', $crudName)->get()[0];
-        $migrationFields = $crud->migrationFields;
-        foreach($migrationFields as $migrationField){
-            $form[] = array(
-                'fieldName' => $migrationField->name,
-                'formFieldType' => $migrationField->formField->form_field_type,
-                'formFieldOptions' =>
-                    ($migrationField->formField->form_field_options == null) ?
-                        null:explode('#', $migrationField->formField->form_field_options)
-            );
-        }
-        return view('mersads.create');
+        return view('mms.create');
     }
 
     /**
@@ -67,9 +54,9 @@ class MersadsController extends Controller
         
         $requestData = $request->all();
         
-        Mersad::create($requestData);
+        Mm::create($requestData);
 
-        return redirect('mersads')->with('flash_message', 'Mersad added!');
+        return redirect('mms')->with('flash_message', 'Mm added!');
     }
 
     /**
@@ -81,9 +68,8 @@ class MersadsController extends Controller
      */
     public function show($id)
     {
-        $mersad = Mersad::findOrFail($id);
-
-        return view('mersads.show', compact('mersad'));
+        $model = Mm::findOrFail($id);
+        return view('show', compact('model'));
     }
 
     /**
@@ -95,9 +81,9 @@ class MersadsController extends Controller
      */
     public function edit($id)
     {
-        $mersad = Mersad::findOrFail($id);
+        $mm = Mm::findOrFail($id);
 
-        return view('mersads.edit', compact('mersad'));
+        return view('mms.edit', compact('mm'));
     }
 
     /**
@@ -113,10 +99,10 @@ class MersadsController extends Controller
         
         $requestData = $request->all();
         
-        $mersad = Mersad::findOrFail($id);
-        $mersad->update($requestData);
+        $mm = Mm::findOrFail($id);
+        $mm->update($requestData);
 
-        return redirect('mersads')->with('flash_message', 'Mersad updated!');
+        return redirect('mms')->with('flash_message', 'Mm updated!');
     }
 
     /**
@@ -128,8 +114,8 @@ class MersadsController extends Controller
      */
     public function destroy($id)
     {
-        Mersad::destroy($id);
+        Mm::destroy($id);
 
-        return redirect('mersads')->with('flash_message', 'Mersad deleted!');
+        return redirect('mms')->with('flash_message', 'Mm deleted!');
     }
 }
