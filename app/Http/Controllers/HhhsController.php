@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Admins;
+use App\Hhh;
 use Illuminate\Http\Request;
+use App\Crud;
 
-class AdminsController extends Controller
+class HhhsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,17 +18,18 @@ class AdminsController extends Controller
      */
     public function index(Request $request)
     {
-        dd((new Admins)->getFillable());
+        $fillables = (new Hhh)->getFillable();
+        $crud = Crud::where('name', '=', strtolower('Hhh') . 's')->get()[0];
         $keyword = $request->get('search');
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $admins = Admins::latest()->paginate($perPage);
+            $models = $hhhs = Hhh::latest()->paginate($perPage);
         } else {
-            $admins = Admins::latest()->paginate($perPage);
+            $models = $hhhs = Hhh::latest()->paginate($perPage);
         }
 
-        return view('admins.index', compact('admins'));
+        return view('index', compact('hhhs', 'models', 'fillables', 'crud'));
     }
 
     /**
@@ -37,7 +39,7 @@ class AdminsController extends Controller
      */
     public function create()
     {
-        return view('admins.create');
+        return view('hhhs.create');
     }
 
     /**
@@ -52,9 +54,9 @@ class AdminsController extends Controller
         
         $requestData = $request->all();
         
-        Admins::create($requestData);
+        Hhh::create($requestData);
 
-        return redirect('admins')->with('flash_message', 'Admins added!');
+        return redirect('hhhs')->with('flash_message', 'Hhh added!');
     }
 
     /**
@@ -66,9 +68,9 @@ class AdminsController extends Controller
      */
     public function show($id)
     {
-        $admin = Admins::findOrFail($id);
+        $hhh = Hhh::findOrFail($id);
 
-        return view('admins.show', compact('admin'));
+        return view('hhhs.show', compact('hhh'));
     }
 
     /**
@@ -80,9 +82,9 @@ class AdminsController extends Controller
      */
     public function edit($id)
     {
-        $admin = Admins::findOrFail($id);
+        $hhh = Hhh::findOrFail($id);
 
-        return view('admins.edit', compact('admin'));
+        return view('hhhs.edit', compact('hhh'));
     }
 
     /**
@@ -98,10 +100,10 @@ class AdminsController extends Controller
         
         $requestData = $request->all();
         
-        $admin = Admins::findOrFail($id);
-        $admin->update($requestData);
+        $hhh = Hhh::findOrFail($id);
+        $hhh->update($requestData);
 
-        return redirect('admins')->with('flash_message', 'Admins updated!');
+        return redirect('hhhs')->with('flash_message', 'Hhh updated!');
     }
 
     /**
@@ -113,8 +115,8 @@ class AdminsController extends Controller
      */
     public function destroy($id)
     {
-        Admins::destroy($id);
+        Hhh::destroy($id);
 
-        return redirect('admins')->with('flash_message', 'Admins deleted!');
+        return redirect('hhhs')->with('flash_message', 'Hhh deleted!');
     }
 }

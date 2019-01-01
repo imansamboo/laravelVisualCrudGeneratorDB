@@ -92,3 +92,8 @@ Route::resource('wwwwwws', 'WwwwwwsController');
 Route::resource('ddds', 'DddsController');
 Route::resource('cccs', 'CccsController');
 Route::resource('bbbs', 'BbbsController');
+Route::resource('icws', 'IcwsController');
+Route::resource('pars', 'ParsController');
+Route::resource('tels', 'TelsController');
+Route::resource('kks', 'KksController');
+Route::resource('hhhs', 'HhhsController');
