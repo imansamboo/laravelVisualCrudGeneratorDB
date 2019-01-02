@@ -36,10 +36,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($models                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        as $item)
+                                @foreach($models as $item)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        as $item)
                                     <tr>
                                         <td>{{ $loop->iteration or $item->id }}</td>
-                                        <td>{{ $item->name }}</td>
+                                        @foreach($fillables as $fillable)
+                                        <td>{{ $item->$fillable }}</td>
+                                        @endforeach
                                         <td>
                                             <a href="{{ url('/' . $crud->name. '/' . $item->id) }}" title="View {{$crud->name}}"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/' . $crud->name . '/' . $item->id . '/edit') }}" title="Edit {{$crud->name}}"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
