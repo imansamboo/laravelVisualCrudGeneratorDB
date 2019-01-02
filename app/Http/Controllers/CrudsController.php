@@ -121,6 +121,7 @@ class crudsController extends Controller
             );
             $schema .= $requestData['field_name' . $i]. "#" .  $requestData['fieldType' . $i];
             if( $requestData['options' . $i] != null &&  $requestData['options' . $i] != ''){
+                error_log(__LINE__ . "\n", 3, '/var/www/html/line.log') ;
                 $options = explode('#', $requestData['options' . $i]);
                 $schema .= '#options={';
                 $i = 0;
@@ -134,9 +135,10 @@ class crudsController extends Controller
                     }
                 }
                 $schema .= '};';
-
+                error_log(__LINE__ . "\n", 3, '/var/www/html/line.log') ;
             }else{
                 $schema .= ";";
+                error_log(__LINE__ . "\n", 3, '/var/www/html/line.log') ;
             }
         }
         $schema .= "";
